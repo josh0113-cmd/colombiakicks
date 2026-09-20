@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Colombia Kicks | Catálogo Exclusivo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #f7f7f8;
+      --card-bg: #ffffff;
+      --text-main: #111111;
+      --text-muted: #707072;
+      --accent-red: #e02424;
+      --accent-black: #000000;
+      --border-color: #e5e5ea;
+      --btn-wpp: #25D366;
+      --btn-wpp-hover: #1eb954;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      padding-bottom: 50px;
+    }
+
+    /* BARRA SUPERIOR */
+    .top-announcement {
+      background: var(--accent-black);
+      color: #fff;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 8px 10px;
+      letter-spacing: 0.3px;
+      line-height: 1.3;
+    }
+
+    /* HEADER */
+    header {
+      background: #fff;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand-title {
+      font-size: 1.2rem;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .brand-title span {
+      color: var(--accent-red);
+    }
+
+    .btn-talla-header {
+      background: #f2f2f7;
+      border: 1px solid #d1d1d6;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* ===================================================
+       VISTA 1: CATÁLOGO PRINCIPAL
+       =================================================== */
+    #vistaCatalogo {
+      display: block;
+    }
+
+    .banner-marquilla {
+      background: #fff;
+      margin: 12px;
+      padding: 12px;
+      border-radius: 10px;
+      border-left: 4px solid var(--accent-red);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+
+    .banner-marquilla-icon { font-size: 1.5rem; flex-shrink: 0; }
+    .banner-marquilla-text h4 { font-size: 0.8rem; font-weight: 800; }
+    .banner-marquilla-text p { font-size: 0.7rem; color: var(--text-muted); line-height: 1.25; }
+
+    .filters-container {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 2px 12px 14px 12px;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .filters-container::-webkit-scrollbar { display: none; }
+
+    .filter-btn {
+      background: #fff;
+      border: 1px solid var(--border-color);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .filter-btn.active {
+      background: var(--accent-black);
+      color: #fff;
+      border-color: var(--accent-black);
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      padding: 0 12px;
+    }
+
+    @media (min-width: 768px) {
+      .products-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        padding: 0 20px;
+      }
+    }
+
+    .product-card {
+      background: var(--card-bg);
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .badge-discount {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: #fff;
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+      font-size: 0.68rem;
+      font-weight: 800;
+      padding: 3px 6px;
+      border-radius: 4px;
+      z-index: 2;
+    }
+
+    .card-img-wrapper {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: #f4f4f4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .card-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .card-info {
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-title {
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      line-height: 1.25;
+      margin-bottom: 6px;
+      color: var(--text-main);
+    }
+
+    .card-prices {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .card-price-old {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-decoration: line-through;
+      font-weight: 600;
+    }
+
+    .card-price-real {
+      font-size: 0.95rem;
+      color: var(--accent-red);
+      font-weight: 900;
+    }
+
+    /* ===================================================
+       VISTA 2: DETALLE DEL PRODUCTO
+       =================================================== */
+    #vistaProducto {
+      display: none;
+      background: #fff;
+      min-height: 100vh;
+      padding-bottom: 60px;
+    }
+
+    .btn-volver {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 12px 16px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      text-transform: uppercase;
+    }
+
+    .detail-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    @media (min-width: 768px) {
+      .detail-container {
+        flex-direction: row;
+        gap: 40px;
+        margin-top: 20px;
+      }
+      .detail-gallery-col { flex: 1.2; }
+      .detail-info-col { flex: 1; }
+    }
+
+    .detail-main-img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: #f8f8f8;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .detail-main-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .detail-badge-status {
+      display: inline-block;
+      background: #f2f2f7;
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .detail-title {
+      font-size: 1.2rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      line-height: 1.2;
+    }
+
+    .detail-prices {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .detail-price-old {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      text-decoration: line-through;
+      font-weight: 600;
+    }
+
+    .detail-price-real {
+      font-size: 1.35rem;
+      color: var(--accent-red);
+      font-weight: 900;
+    }
+
+    /* SECCIÓN OTROS COLORES */
+    .color-section-title {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      color: var(--text-muted);
+    }
+
+    .color-section-title span {
+      color: var(--text-main);
+    }
+
+    .detail-color-grid {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin-bottom: 16px;
+    }
+
+    .color-thumb-card {
+      width: 54px;
+      height: 54px;
+      border-radius: 8px;
+      border: 2px solid var(--border-color);
+      padding: 2px;
+      cursor: pointer;
+      background: #fff;
+      flex-shrink: 0;
+    }
+
+    .color-thumb-card.active {
+      border-color: var(--accent-red);
+      box-shadow: 0 0 0 1px var(--accent-red);
+    }
+
+    .color-thumb-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    /* GUÍA DE TALLA BOTÓN */
+    .btn-guia-talla-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      padding: 10px;
+      background: #f9f9f9;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      cursor: pointer;
+      margin-bottom: 14px;
+    }
+
+    /* SELECTOR DE TALLA */
+    .select-talla-label {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .select-talla-box {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1.5px solid var(--border-color);
+      font-size: 0.85rem;
+      font-weight: 700;
+      background: #fff;
+      margin-bottom: 18px;
+      outline: none;
+    }
+
+    /* BOTÓN PEDIR AHORA POR WHATSAPP (VERDE OFICIAL) */
+    .btn-wpp-action {
+      background: var(--btn-wpp);
+      color: #fff;
+      border: none;
+      width: 100%;
+      padding: 16px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
+      transition: background 0.2s ease, transform 0.1s ease;
+    }
+
+    .btn-wpp-action:hover {
+      background: var(--btn-wpp-hover);
+    }
+
+    .btn-wpp-action:active {
+      transform: scale(0.98);
+    }
+
+    /* TARJETA DE CONFIANZA Y GARANTÍAS */
+    .trust-box {
+      margin-top: 22px;
+      background: #fbfbfd;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .trust-icon {
+      font-size: 1.3rem;
+      line-height: 1;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .trust-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .trust-title {
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--text-main);
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .trust-desc {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      line-height: 1.3;
+    }
+
+    /* MODAL DE TALLA (MARQUILLA) */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.65);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .modal-content {
+      background: #fff;
+      border-radius: 14px;
+      max-width: 380px;
+      width: 100%;
+      padding: 18px;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      background: none;
+      border: none;
+      font-size: 1.6rem;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .modal-title { font-size: 1rem; font-weight: 900; margin-bottom: 6px; text-transform: uppercase; }
+    .modal-desc { font-size: 0.75rem; color: var(--text-muted); line-height: 1.35; margin-bottom: 12px; }
+    .guide-box {
+      background: #f9f9f9;
+      border: 1px dashed #ccc;
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 12px;
+      font-size: 0.72rem;
+      line-height: 1.35;
+    }
+    .guide-box strong { color: var(--accent-red); }
+  </style>
+</head>
+<body>
+
+  <!-- BARRA SUPERIOR -->
+  <div class="top-announcement">
+    🚚 ENVÍO GRATIS • 💵 PAGA AL RECIBIR • 👟 TALLA VERIFICADA
+  </div>
+
+  <!-- HEADER -->
+  <header>
+    <div class="brand-title" onclick="volverAlCatalogo()">COLOMBIA <span>KICKS</span></div>
+    <button class="btn-talla-header" onclick="abrirModalTalla()">
+      📸 Mi talla
+    </button>
+  </header>
+
+  <!-- ========================================================
+       VISTA 1: CATÁLOGO
+       ======================================================== -->
+  <div id="vistaCatalogo">
+    <div class="banner-marquilla" onclick="abrirModalTalla()">
+      <div class="banner-marquilla-icon">🏷️</div>
+      <div class="banner-marquilla-text">
+        <h4>¡Cero errores con tu talla!</h4>
+        <p>Envíanos una foto de la <strong>marquilla interior</strong> de uno de tus tenis y te mandamos tu número exacto.</p>
+      </div>
+    </div>
+
+    <div class="filters-container">
+      <button class="filter-btn active" onclick="filtrarCategoria('todos', this)">Todos</button>
+      <button class="filter-btn" onclick="filtrarCategoria('hombre', this)">Hombre</button>
+      <button class="filter-btn" onclick="filtrarCategoria('dama', this)">Dama</button>
+      <button class="filter-btn" onclick="filtrarCategoria('deportivos', this)">Deportivos</button>
+      <button class="filter-btn" onclick="filtrarCategoria('guayos', this)">Guayos</button>
+    </div>
+
+    <main class="products-grid" id="catalogoGrid"></main>
+  </div>
+
+  <!-- ========================================================
+       VISTA 2: FICHA DETALLADA DE PRODUCTO
+       ======================================================== -->
+  <div id="vistaProducto">
+    <div class="btn-volver" onclick="volverAlCatalogo()">
+      ← Volver al catálogo
+    </div>
+
+    <div class="detail-container">
+      <!-- Columna Imagen Grande -->
+      <div class="detail-gallery-col">
+        <div class="detail-main-img">
+          <img id="detailImg" src="" alt="Tenis">
+        </div>
+      </div>
+
+      <!-- Columna Información y Opciones -->
+      <div class="detail-info-col">
+        <span class="detail-badge-status">Bajo pedido exclusivo</span>
+        <h1 class="detail-title" id="detailTitle"></h1>
+        
+        <div class="detail-prices">
+          <span class="detail-price-old" id="detailOldPrice"></span>
+          <span class="detail-price-real" id="detailRealPrice"></span>
+        </div>
+
+        <!-- Selector de Colores -->
+        <div class="color-section-title">
+          Otros Colores: <span id="detailColorName"></span>
+        </div>
+        <div class="detail-color-grid" id="detailColorGrid"></div>
+
+        <!-- Botón Guía de Tallas -->
+        <button class="btn-guia-talla-row" onclick="abrirModalTalla()">
+          📸 Guía de tallas (Foto Marquilla)
+        </button>
+
+        <!-- Selector de Tallas -->
+        <label class="select-talla-label">Selecciona tu talla:</label>
+        <select class="select-talla-box" id="selectTalla" onchange="actualizarBotonWhatsApp()">
+          <!-- Opciones dinámicas -->
+        </select>
+
+        <!-- Botón de WhatsApp Verde Oficial -->
+        <a href="#" id="btnPedirWhatsApp" target="_blank" class="btn-wpp-action">
+          PEDIR AHORA POR WHATSAPP
+        </a>
+
+        <!-- BLOQUE DE CONFIANZA -->
+        <div class="trust-box">
+          <div class="trust-item">
+            <div class="trust-icon">📦</div>
+            <div class="trust-text">
+              <span class="trust-title">ENVÍO GRATIS</span>
+              <span class="trust-desc">Entrega en 2–4 días hábiles</span>
+            </div>
+          </div>
+
+          <div class="trust-item">
+            <div class="trust-icon">💵</div>
+            <div class="trust-text">
+              <span class="trust-title">PAGA AL RECIBIR</span>
+              <span class="trust-desc">Sin pagar por adelantado</span>
+            </div>
+          </div>
+
+          <div class="trust-item">
+            <div class="trust-icon">👟</div>
+            <div class="trust-text">
+              <span class="trust-title">TALLA VERIFICADA</span>
+              <span class="trust-desc">Confirmamos tu talla antes de despachar</span>
+            </div>
+          </div>
+
+          <div class="trust-item">
+            <div class="trust-icon">🛡️</div>
+            <div class="trust-text">
+              <span class="trust-title">GARANTÍA Y CAMBIOS</span>
+              <span class="trust-desc">Te respaldamos por defectos de fabricación y cambios de talla.</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL EXPLICATIVO MARQUILLA -->
+  <div class="modal-overlay" id="modalTalla">
+    <div class="modal-content">
+      <button class="modal-close" onclick="cerrarModalTalla()">&times;</button>
+      <h3 class="modal-title">Tu talla exacta en 1 foto</h3>
+      <p class="modal-desc">
+        Para asegurar que te quede perfecto y sin enredos de cambios, usamos el método más seguro:
+      </p>
+      <div class="guide-box">
+        1. Coge cualquier tenis que te quede cómodo.<br>
+        2. <strong>Tómale foto a la marquilla blanca interior</strong> (donde dice US, EUR y CM).<br>
+        3. Envíala por WhatsApp al confirmar tu pedido.
+      </div>
+      <p style="font-size: 0.72rem; color: #444; margin-bottom: 12px;">
+        💡 <em>Con esos datos sacamos tu número exacto de bodega.</em>
+      </p>
+      <button class="btn-wpp-action" style="padding: 10px;" onclick="cerrarModalTalla()">¡Entendido!</button>
+    </div>
+  </div>
+
+  <script>
+    const WHATSAPP_NUM = "573234762626";
+
+    // BASE DE DATOS DE PRODUCTOS
+    const productos = [
+      {
+        id: 1,
+        nombre: "Bape Sta Low Shark Edition",
+        categoria: "hombre",
+        precioTachado: 210000,
+        precioReal: 155000,
+        tallasDisponibles: ["40 EUR", "41 EUR", "42 EUR", "43 EUR", "44 EUR"],
+        colores: [
+          { nombreColor: "Shark Blanco/Rojo", imagen: "vape-star-3.jpg" },
+          { nombreColor: "Patent Smoke Black", imagen: "vape-star-1.jpg" },
+          { nombreColor: "Royal Blue Air", imagen: "vape-star-2.jpg" },
+          { nombreColor: "Tricolor USA", imagen: "vape-star-4.jpg" }
+        ]
+      }
+    ];
+
+    let productoActivo = null;
+    let colorSeleccionadoIndex = 0;
+
+    function formatoMoneda(valor) {
+      return new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(valor);
+    }
+
+    // 1. CARGAR CATÁLOGO PRINCIPAL
+    const grid = document.getElementById('catalogoGrid');
+
+    function cargarCatalogo(lista) {
+      grid.innerHTML = "";
+      lista.forEach(item => {
+        const descuento = Math.round(((item.precioTachado - item.precioReal) / item.precioTachado) * 100);
+        const fotoPortada = item.colores[0].imagen;
+
+        const card = document.createElement('div');
+        card.className = "product-card";
+        card.onclick = () => verDetalleProducto(item.id);
+
+        card.innerHTML = `
+          <div class="badge-discount">-${descuento}%</div>
+          <div class="card-img-wrapper">
+            <img src="${fotoPortada}" alt="${item.nombre}" loading="lazy">
+          </div>
+          <div class="card-info">
+            <h3 class="card-title">${item.nombre}</h3>
+            <div class="card-prices">
+              <span class="card-price-old">${formatoMoneda(item.precioTachado)}</span>
+              <span class="card-price-real">${formatoMoneda(item.precioReal)}</span>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // 2. ABRIR DETALLE DEL PRODUCTO
+    function verDetalleProducto(prodId) {
+      productoActivo = productos.find(p => p.id === prodId);
+      colorSeleccionadoIndex = 0;
+
+      document.getElementById('vistaCatalogo').style.display = 'none';
+      document.getElementById('vistaProducto').style.display = 'block';
+      window.scrollTo(0, 0);
+
+      document.getElementById('detailTitle').textContent = productoActivo.nombre;
+      document.getElementById('detailOldPrice').textContent = formatoMoneda(productoActivo.precioTachado);
+      document.getElementById('detailRealPrice').textContent = formatoMoneda(productoActivo.precioReal);
+
+      const selectTalla = document.getElementById('selectTalla');
+      selectTalla.innerHTML = "";
+      productoActivo.tallasDisponibles.forEach(t => {
+        const opt = document.createElement('option');
+        opt.value = t;
+        opt.textContent = `Talla ${t}`;
+        selectTalla.appendChild(opt);
+      });
+
+      const colorGrid = document.getElementById('detailColorGrid');
+      colorGrid.innerHTML = "";
+      productoActivo.colores.forEach((c, index) => {
+        const thumb = document.createElement('div');
+        thumb.className = `color-thumb-card ${index === 0 ? 'active' : ''}`;
+        thumb.innerHTML = `<img src="${c.imagen}" alt="${c.nombreColor}">`;
+        thumb.onclick = () => cambiarColorDetalle(index);
+        colorGrid.appendChild(thumb);
+      });
+
+      cambiarColorDetalle(0);
+    }
+
+    // CAMBIAR COLOR SELECCIONADO
+    function cambiarColorDetalle(index) {
+      colorSeleccionadoIndex = index;
+      const color = productoActivo.colores[index];
+
+      document.getElementById('detailImg').src = color.imagen;
+      document.getElementById('detailColorName').textContent = color.nombreColor;
+
+      const thumbs = document.querySelectorAll('.color-thumb-card');
+      thumbs.forEach((t, i) => t.classList.toggle('active', i === index));
+
+      actualizarBotonWhatsApp();
+    }
+
+    // ACTUALIZAR MENSAJE DE WHATSAPP
+    function actualizarBotonWhatsApp() {
+      if (!productoActivo) return;
+      const color = productoActivo.colores[colorSeleccionadoIndex];
+      const talla = document.getElementById('selectTalla').value;
+
+      const mensaje = `Hola Colombia Kicks! Quiero pedir los *${productoActivo.nombre}* en color *${color.nombreColor}*, talla *${talla}* (${formatoMoneda(productoActivo.precioReal)}).`;
+      document.getElementById('btnPedirWhatsApp').href = `https://wa.me/${WHATSAPP_NUM}?text=${encodeURIComponent(mensaje)}`;
+    }
+
+    // VOLVER AL CATÁLOGO
+    function volverAlCatalogo() {
+      document.getElementById('vistaProducto').style.display = 'none';
+      document.getElementById('vistaCatalogo').style.display = 'block';
+      window.scrollTo(0, 0);
+    }
+
+    // FILTROS
+    function filtrarCategoria(cat, boton) {
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      boton.classList.add('active');
+
+      if (cat === 'todos') {
+        cargarCatalogo(productos);
+      } else {
+        const filtrados = productos.filter(p => p.categoria.toLowerCase() === cat.toLowerCase());
+        cargarCatalogo(filtrados);
+      }
+    }
+
+    // MODAL DE TALLA
+    function abrirModalTalla() {
+      document.getElementById('modalTalla').style.display = 'flex';
+    }
+
+    function cerrarModalTalla() {
+      document.getElementById('modalTalla').style.display = 'none';
+    }
+
+    // Carga inicial
+    cargarCatalogo(productos);
+  </script>
+</body>
+</html>
